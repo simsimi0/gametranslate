@@ -1,0 +1,38 @@
+difficulty,key,category,speaker,context,source_en,style_guide,required_preserve,expected_challenge
+1,ui_start,ui,System,Main menu button,Start Game,간결한 UI 문체,,기본 UI 버튼 번역
+1,ui_options,ui,System,Main menu button,Options,간결한 UI 문체,,짧은 메뉴 용어 선택
+1,item_potion,item,System,Inventory item name,Health Potion,아이템명은 짧게,,일반 아이템명
+2,ui_save_success,ui,System,After saving progress,Game saved.,간결한 시스템 문구,,자연스러운 완료 메시지
+2,item_desc_potion,item,System,Item description,Restores 50 HP.,짧은 설명문,50 HP,숫자와 게임 용어 유지
+2,quest_accept,ui,System,Quest accept button,Accept Quest,간결한 UI 문체,,버튼형 명령문
+3,npc_greeting_dialogue,dialogue,Rook,First meeting with player,"Hey. You lost or just stupid?",무뚝뚝한 반말,,캐릭터 성격 반영
+3,npc_polite_warning,dialogue,Mira,Warning before boss room,"Please be careful. Something feels wrong here.",차분한 존댓말,,존댓말과 긴장감 유지
+3,npc_short_reply,dialogue,Rook,Answer after player asks for help,Not my problem.,무뚝뚝한 반말,,짧은 대사의 말맛
+4,npc_player_name,dialogue,Rook,Player returned from dungeon,"You made it back alive, {playerName}.",무뚝뚝한 반말,{playerName},placeholder 보존과 자연스러운 주어 생략
+4,ui_damage_format,combat,System,Damage tooltip,"Deals %s fire damage.",간결한 전투 설명,%s,printf placeholder 보존
+4,ui_count_format,ui,System,Inventory count,"You have {count} keys.",간결한 UI 문체,{count},수량 변수 보존
+5,dialogue_newline,dialogue,Mira,Two-line dramatic dialogue,"Listen carefully.\nThe door only opens once.",차분한 존댓말,\n,줄바꿈 보존
+5,system_tab_debug,system,System,Developer-facing debug text,"Missing file:\t%s",기술 문구는 의미 우선,"\t %s",탭 escape와 %s 보존
+5,dialogue_ellipsis,dialogue,Rook,After seeing destroyed village,"Damn...\nWe were too late.",거친 반말,\n,감정선과 줄바꿈 유지
+6,rich_bold_warning,ui,System,Boss warning popup,"<b>Warning:</b> You cannot return after this point.",간결한 경고문,<b> </b>,HTML 유사 태그 보존
+6,rich_color_item,item,System,Rare item tooltip,"<color=#FFAA00>Legendary</color> sword found.",아이템 획득 메시지,<color=#FFAA00> </color>,색상 태그 보존
+6,bbcode_reward,ui,System,Reward popup,"You received [item]{0}[/item] x%d.",간결한 획득 메시지,"[item] [/item] {0} %d",BBCode와 복합 placeholder 보존
+7,ambiguous_charge_ui,ui,System,Shop button,Charge,문맥상 결제/충전/돌진을 구분해야 함,,중의어 Charge 처리
+7,ambiguous_charge_combat,combat,System,Skill command,Charge,전투 스킬 문맥,,같은 단어의 다른 의미 처리
+7,ambiguous_save,ui,System,Before overwriting file,Save,간결한 UI 문체,,저장/구하다 중 문맥 판단
+8,idiom_dialogue,dialogue,Rook,Before risky plan,"Don't get cold feet now.",무뚝뚝한 반말,,영어 관용구 현지화
+8,sarcasm_dialogue,dialogue,Rook,After player triggers trap,"Great. Just great.",비꼬는 반말,,반어법 처리
+8,soft_threat_dialogue,dialogue,Mira,Polite but threatening line,"I would strongly advise you to leave.",정중하지만 위협적,,간접 위협의 뉘앙스
+9,lore_high_fantasy,lore,System,Ancient relic description,"The Ashen Keep remembers every oath broken beneath its crown.",다크 판타지 문어체,Ashen Keep,고유명사와 문학적 표현
+9,character_old_sage,dialogue,Elder,Old sage explains prophecy,"The moon speaks not to those who bargain with dawn.",고풍스러운 말투,,문어체/예언체 자연화
+9,poetic_item_desc,item,System,Legendary weapon description,"A blade that hums with the grief of fallen stars.",시적인 아이템 설명,,과한 직역 방지
+10,pun_dialogue,dialogue,Rook,After defeating a mushroom monster,"Guess he wasn't a fun guy after all.",농담은 한국어로 자연스럽게 현지화,,말장난 현지화
+10,meme_like_dialogue,dialogue,Rook,After repeated player failure,"At this point, I'm impressed.",비꼬지만 과하지 않게,,밈 느낌의 자연화
+10,cultural_reference,dialogue,Mira,Light joke about impossible odds,"Those odds are not exactly in our favor.",차분한 존댓말,,문화적 표현을 자연스럽게 변환
+11,gender_ambiguous_dialogue,dialogue,Narrator,Unknown character enters room,"They stepped forward, hiding their face beneath the hood.",성별을 단정하지 않음,,영어 they 처리
+11,relationship_ambiguous,dialogue,Mira,Talking about Alex without context,"Alex said they would wait for us.",성별/관계 단정 금지,Alex,대명사 정보 부족 처리
+11,fragment_ui,ui,System,Status effect label,On hit: +15% chance to bleed,짧은 상태효과 문구,+15%,문장 조각 자연화
+12,complex_all_in_one,dialogue,Rook,Boss intro line,"<b>{bossName}</b>? Hah.\nI thought you'd be taller, %s.",무뚝뚝하고 비꼬는 반말,"<b> </b> {bossName} \n %s",태그/변수/말투/농담 동시 처리
+12,complex_shop_tooltip,ui,System,Shop tooltip with limit,"Buy {itemName} for %d gold? You have %.1f seconds to confirm.",간결한 상점 UI,"{itemName} %d %.1f",복수 placeholder와 UI 길이
+12,complex_lore_dialogue,dialogue,Elder,Final prophecy,"When the last bell breaks, remember: mercy is a debt the dead always collect.",고풍스럽고 어두운 예언체,,추상적 의미와 분위기 유지
+

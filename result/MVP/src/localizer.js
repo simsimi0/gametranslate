@@ -10,6 +10,8 @@ export const RESULT_FIELDS = [
   "validation_errors"
 ];
 
+export const METADATA_FIELDS = ["translator_type", "model", "generated_at", "source_file", "row_count", "api_key_used"];
+
 const TOKEN_PATTERNS = [
   /\\\\[A-Za-z]\[[^\]]+\]/g,
   /(?<!\\)\\[A-Za-z]\[[^\]]+\]/g,
@@ -126,7 +128,7 @@ export function toCsvWithBom(rows, preferredHeaders = []) {
 }
 
 export function resultHeaders(inputHeaders = []) {
-  return Array.from(new Set([...inputHeaders, ...RESULT_FIELDS]));
+  return Array.from(new Set([...inputHeaders, ...RESULT_FIELDS, ...METADATA_FIELDS]));
 }
 
 export function extractPreserveTokens(text = "") {
@@ -155,18 +157,24 @@ export async function translateRow(row, translator) {
 export async function localizeRows(rows, translator, options = {}) {
   assertTranslator(translator);
   const range = options.range ?? "all";
+  const targetRows = rows.filter((item) => isInRange(item, range));
   const localized = [];
+  const metadata = generationMetadata(translator, {
+    ...options,
+    rowCount: options.rowCount ?? options.row_count ?? targetRows.length
+  });
 
-  for (const row of rows.filter((item) => isInRange(item, range))) {
-    localized.push(await localizeRow(row, translator));
+  for (const row of targetRows) {
+    localized.push(await localizeRow(row, translator, metadata));
   }
 
   return localized;
 }
 
-export async function localizeRow(row, translator) {
+export async function localizeRow(row, translator, metadataOptions = {}) {
   let translation;
   let translatorError = "";
+  const metadata = generationMetadata(translator, metadataOptions);
 
   try {
     translation = await translateRow(row, translator);
@@ -183,7 +191,8 @@ export async function localizeRow(row, translator) {
     ...row,
     translation_ko: translation.translation_ko,
     naturalness_score: translation.naturalness_score,
-    translationese_risk: translation.translationese_risk
+    translationese_risk: translation.translationese_risk,
+    ...metadata
   };
   const validation = validateRow(row, result);
 
@@ -269,6 +278,24 @@ function assertTranslator(translator) {
   if (!translator || typeof translator.translate !== "function") {
     throw new TypeError("translator.translate(row) is required");
   }
+}
+
+function generationMetadata(translator, options = {}) {
+  return {
+    translator_type: String(options.translatorType ?? options.translator_type ?? translator?.translatorType ?? "unknown"),
+    model: String(options.model ?? translator?.model ?? ""),
+    generated_at: String(options.generatedAt ?? options.generated_at ?? new Date().toISOString()),
+    source_file: String(options.sourceFile ?? options.source_file ?? ""),
+    row_count: String(options.rowCount ?? options.row_count ?? ""),
+    api_key_used: String(booleanValue(options.apiKeyUsed ?? options.api_key_used ?? translator?.apiKeyUsed ?? false))
+  };
+}
+
+function booleanValue(value) {
+  if (typeof value === "string") {
+    return value.trim().toLowerCase() === "true";
+  }
+  return Boolean(value);
 }
 
 function extractLiteralPreserveTokens(text = "") {

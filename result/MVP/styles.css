@@ -24,8 +24,7 @@ body {
 }
 
 button,
-.file-button,
-.actions input {
+.file-button {
   min-height: 38px;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -39,17 +38,6 @@ button,
   font-weight: 700;
   padding: 0 14px;
   white-space: nowrap;
-}
-
-.actions input {
-  width: 190px;
-  cursor: text;
-  justify-content: flex-start;
-  font-weight: 500;
-}
-
-#modelName {
-  width: 132px;
 }
 
 button:disabled {
@@ -286,8 +274,7 @@ td:nth-child(2) {
   }
 
   .actions button,
-  .actions label,
-  .actions input {
+  .actions label {
     flex: 1 1 140px;
   }
 

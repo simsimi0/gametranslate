@@ -15,12 +15,10 @@
             <h1>CSV Localizer</h1>
           </div>
           <div class="actions">
-            <input id="apiKey" type="password" autocomplete="off" placeholder="OpenAI API key" />
-            <input id="modelName" type="text" value="gpt-4.1-mini" aria-label="OpenAI model" />
-            <label class="file-button" for="csvFile">CSV 선택</label>
+            <label class="file-button" for="csvFile">Select CSV</label>
             <input id="csvFile" type="file" accept=".csv,text/csv" />
-            <button id="translateBtn" type="button" disabled>번역 실행</button>
-            <button id="downloadBtn" type="button" disabled>CSV 다운로드</button>
+            <button id="translateBtn" type="button" disabled>Run translation</button>
+            <button id="downloadBtn" type="button" disabled>Download CSV</button>
           </div>
         </header>
 
@@ -32,7 +30,7 @@
             <button type="button" data-range="10-12">10-12</button>
             <button type="button" data-range="13-13">13</button>
           </div>
-          <div class="status-line" id="fileStatus">CSV를 선택하세요.</div>
+          <div class="status-line" id="fileStatus">Select a CSV file.</div>
         </section>
 
         <section class="metrics" aria-label="validation summary">
@@ -58,16 +56,16 @@
           <table>
             <thead>
               <tr>
-                <th>난이도</th>
+                <th>difficulty</th>
                 <th>key</th>
                 <th>source_en</th>
                 <th>translation_ko</th>
-                <th>검증</th>
+                <th>validation</th>
               </tr>
             </thead>
             <tbody id="rowsBody">
               <tr>
-                <td colspan="5" class="empty">업로드된 CSV가 없습니다.</td>
+                <td colspan="5" class="empty">No CSV loaded.</td>
               </tr>
             </tbody>
           </table>

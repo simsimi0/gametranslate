@@ -15,6 +15,8 @@
             <h1>CSV Localizer</h1>
           </div>
           <div class="actions">
+            <input id="apiKey" type="password" autocomplete="off" placeholder="OpenAI API key" />
+            <input id="modelName" type="text" value="gpt-4.1-mini" aria-label="OpenAI model" />
             <label class="file-button" for="csvFile">CSV 선택</label>
             <input id="csvFile" type="file" accept=".csv,text/csv" />
             <button id="translateBtn" type="button" disabled>번역 실행</button>
@@ -26,7 +28,9 @@
           <div class="segmented" role="group" aria-label="difficulty range">
             <button type="button" class="active" data-range="1-4">1-4</button>
             <button type="button" data-range="5-6">5-6</button>
-            <button type="button" data-range="all">전체</button>
+            <button type="button" data-range="7-9">7-9</button>
+            <button type="button" data-range="10-12">10-12</button>
+            <button type="button" data-range="13-13">13</button>
           </div>
           <div class="status-line" id="fileStatus">CSV를 선택하세요.</div>
         </section>

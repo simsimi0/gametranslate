@@ -1,0 +1,41 @@
+﻿difficulty,key,category,speaker,context,source_en,style_guide,required_preserve,expected_challenge
+1,retest_v2_ui_begin,ui,System,Title menu button,Begin Run,짧은 UI 버튼,,기본 메뉴 번역
+1,retest_v2_ui_settings,ui,System,Title menu button,Preferences,짧은 UI 버튼,,짧은 메뉴 용어 선택
+1,retest_v2_item_ring,item,System,Inventory item name,Copper Ring,아이템명은 짧게,,기본 아이템명
+2,retest_v2_checkpoint,ui,System,After reaching checkpoint,Checkpoint reached.,간결한 시스템 문구,,자연스러운 완료 메시지
+2,retest_v2_energy_desc,item,System,Consumable tooltip,Restores 15 energy.,짧은 설명문,15,숫자와 게임 용어 유지
+2,retest_v2_pin_task,ui,System,Objective list button,Pin Task,짧은 버튼 문구,,명령형 UI 번역
+3,retest_v2_blunt_jab,dialogue,Kael,Player chooses wrong route,"Left again. Impressive.",건조한 반말,,짧은 비꼼 대사
+3,retest_v2_gentle_warning,dialogue,Sera,Before foggy path,"Stay behind me. The fog is thicker here.",차분한 존댓말,,존댓말과 경고
+3,retest_v2_child_request,dialogue,Pip,Child asks for help,My bell fell into the well.,어린아이 말투,,캐릭터 나이감
+4,retest_v2_name_placeholder,dialogue,Sera,Welcoming player,"Welcome back, {riderName}.",차분한 존댓말,{riderName},placeholder 보존
+4,retest_v2_armor_format,combat,System,Buff tooltip,Gain %s armor for 1 round.,전투 설명,%s,printf 토큰 보존
+4,retest_v2_slot_count,ui,System,Inventory capacity,"Slots used: {used}/{limit}",짧은 UI 문구,"{used} {limit}",복수 placeholder 보존
+5,retest_v2_linebreak_tension,dialogue,Kael,Monster nearby,"Stop.\nDo you hear that?",짧고 긴장감 있는 반말,\n,문자열 줄바꿈 보존
+5,retest_v2_tab_warning,system,System,Debug warning,"Bad node:\t%03d",기술 문구는 의미 우선,"\t %03d",탭 escape와 포맷 보존
+5,retest_v2_child_fear,dialogue,Pip,Child saw monster,"No, no...\nIt saw us.",어린아이 말투,\n,감정선과 줄바꿈
+6,retest_v2_bold_sealed,ui,System,Locked popup,"<b>Sealed:</b> Requires a sun mark.",간결한 경고,<b> </b>,HTML 유사 태그 보존
+6,retest_v2_color_silence,ui,System,Status popup,"<color=#CC77FF>Silenced</color> for 2 turns.",상태효과 알림,<color=#CC77FF> </color>,색상 태그 보존
+6,retest_v2_bb_skill,ui,System,Skill unlock popup,"Added [skill]{skillName}[/skill] Lv.%d.",획득 메시지,"[skill] [/skill] {skillName} %d",BBCode와 변수 보존
+7,retest_v2_draw_card,ui,System,Card game command,Draw Card,카드 UI 문맥,,중의어 Draw 처리
+7,retest_v2_draw_weapon,combat,System,Enemy action,The knight draws steel.,전투 로그,,같은 단어의 다른 의미 처리
+7,retest_v2_patch_menu,ui,System,Update notes button,Patch Notes,메뉴 UI 문맥,,Patch 중의성 처리
+8,retest_v2_idiom_kael,dialogue,Kael,After player causes trouble,"You really kicked the hornet's nest.",무뚝뚝한 반말,,관용구 현지화
+8,retest_v2_sarcasm_juno,dialogue,Juno,Device fails,"Amazing. We broke the unbreakable thing.",가벼운 비꼼,,비꼼과 농담
+8,retest_v2_polite_threat,dialogue,Marrow,Blocking the player,"I would step aside while I am still asking.",정중하지만 위협적,,간접 위협
+9,retest_v2_lore_lantern,lore,System,Relic description,"A lantern that burns with yesterday's rain.",어두운 판타지 문어체,,문학적 표현
+9,retest_v2_prophecy_star,dialogue,Oracle,Prophecy fragment,"Stars do not answer names spoken in fear.",고풍스러운 예언체,,추상적 예언 문장
+9,retest_v2_poetic_cloak,item,System,Armor description,"A cloak stitched from the hush before thunder.",시적인 아이템 설명,,과한 직역 방지
+10,retest_v2_pun_slime,dialogue,Juno,After slime enemy flees,"Guess that slime lost its grip.",농담은 한국어로 자연스럽게 현지화,,말장난 현지화
+10,retest_v2_meme_kael,dialogue,Kael,Player waits too long,"The elevator has more patience than you.",건조한 비꼼,,밈성 대사 자연화
+10,retest_v2_card_odds,dialogue,Sera,Before risky choice,"Not exactly a winning hand, but we can play it.",차분한 존댓말,,문화적 표현 자연화
+11,retest_v2_unknown_guest,dialogue,Narrator,Mysterious visitor appears,"A hooded guest lowered their voice.",성별 단정 금지,,대명사 정보 부족 처리
+11,retest_v2_unknown_sam,dialogue,Juno,Talking about Sam,Sam forgot their badge again.,성별/관계 단정 금지,Sam,성별 단정 금지
+11,retest_v2_fragment_shield,ui,System,Passive effect label,While shielded: healing +10%,짧은 상태효과,+10%,문장 조각 자연화
+12,retest_v2_complex_rival,dialogue,Kael,Rival entrance,"<i>{rival}</i>?\nTell %s I said nice hat.",비꼬는 반말,"<i> </i> {rival} \n %s",태그/변수/말투 동시 처리
+12,retest_v2_complex_craft,ui,System,Crafting confirmation,"Craft {itemName} with %02d scrap and %.0f%% luck?",간결한 제작 UI,"{itemName} %02d %.0f%%",복수 포맷 보존
+12,retest_v2_complex_oracle,dialogue,Oracle,Final prophecy,"When the pale gate opens, every debt learns to speak.",고풍스럽고 어두운 예언체,,추상 문장과 분위기
+13,retest_v2_rpgmaker_control,dialogue,System,RPG Maker message,"\\C[4]{target}\\C[0] lost \\I[33] %d.\nContinue?",RPG Maker 제어문자 보존,"\\C[4] \\C[0] \\I[33] {target} %d \n",엔진 제어문자 스트레스 테스트
+13,retest_v2_godot_format,ui,System,Godot-style formatted label,"%s wave bonus: {bonus} x%.2f",포맷 보존,"%s {bonus} %.2f",복합 UI 포맷
+13,retest_v2_lua_percent,system,System,Lua localization value,"Shield: %s at %+0.1f%% integrity.",기술/전투 로그,"%s %+0.1f%%",퍼센트 이스케이프와 printf 보존
+

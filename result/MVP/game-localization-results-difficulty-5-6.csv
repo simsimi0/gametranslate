@@ -1,0 +1,7 @@
+﻿difficulty,key,category,speaker,context,source_en,style_guide,required_preserve,expected_challenge,translation_ko,naturalness_score,translationese_risk,preserved_tokens,validation_status,validation_errors
+5,dialogue_newline,dialogue,Mira,Two-line dramatic dialogue,Listen carefully.\nThe door only opens once.,차분한 존댓말,\n,줄바꿈 보존,잘 들으세요.\n문은 단 한 번만 열립니다.,8,low,\n,pass,
+5,system_tab_debug,system,System,Developer-facing debug text,Missing file:\t%s,기술 문구는 의미 우선,\t %s,탭 escape와 %s 보존,파일 누락:\t%s,8,low,%s \t,pass,
+5,dialogue_ellipsis,dialogue,Rook,After seeing destroyed village,Damn...\nWe were too late.,거친 반말,\n,감정선과 줄바꿈 유지,젠장...\n너무 늦었어.,8,low,\n,pass,
+6,rich_bold_warning,ui,System,Boss warning popup,<b>Warning:</b> You cannot return after this point.,간결한 경고문,<b> </b>,HTML 유사 태그 보존,<b>경고:</b> 이 지점 이후로는 돌아올 수 없습니다.,8,low,<b> </b>,pass,
+6,rich_color_item,item,System,Rare item tooltip,<color=#FFAA00>Legendary</color> sword found.,아이템 획득 메시지,<color=#FFAA00> </color>,색상 태그 보존,<color=#FFAA00>전설</color> 검을 발견했습니다.,8,low,<color=#FFAA00> </color>,pass,
+6,bbcode_reward,ui,System,Reward popup,You received [item]{0}[/item] x%d.,간결한 획득 메시지,[item] [/item] {0} %d,BBCode와 복합 placeholder 보존,[item]{0}[/item] x%d 획득,8,low,{0} %d [item] [/item],pass,

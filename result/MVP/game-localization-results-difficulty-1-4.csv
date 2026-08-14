@@ -1,0 +1,13 @@
+﻿difficulty,key,category,speaker,context,source_en,style_guide,required_preserve,expected_challenge,translation_ko,naturalness_score,translationese_risk,preserved_tokens,validation_status,validation_errors
+1,ui_start,ui,System,Main menu button,Start Game,간결한 UI 문체,,기본 UI 버튼 번역,게임 시작,9,low,,pass,
+1,ui_options,ui,System,Main menu button,Options,간결한 UI 문체,,짧은 메뉴 용어 선택,설정,9,low,,pass,
+1,item_potion,item,System,Inventory item name,Health Potion,아이템명은 짧게,,일반 아이템명,체력 물약,9,low,,pass,
+2,ui_save_success,ui,System,After saving progress,Game saved.,간결한 시스템 문구,,자연스러운 완료 메시지,진행 상황이 저장되었습니다.,9,low,,pass,
+2,item_desc_potion,item,System,Item description,Restores 50 HP.,짧은 설명문,50 HP,숫자와 게임 용어 유지,50 HP를 회복합니다.,9,low,50 HP,pass,
+2,quest_accept,ui,System,Quest accept button,Accept Quest,간결한 UI 문체,,버튼형 명령문,퀘스트 수락,9,low,,pass,
+3,npc_greeting_dialogue,dialogue,Rook,First meeting with player,Hey. You lost or just stupid?,무뚝뚝한 반말,,캐릭터 성격 반영,"야. 길 잃었냐, 아니면 그냥 멍청한 거냐?",9,low,,pass,
+3,npc_polite_warning,dialogue,Mira,Warning before boss room,Please be careful. Something feels wrong here.,차분한 존댓말,,존댓말과 긴장감 유지,조심하세요. 여긴 뭔가 이상합니다.,9,low,,pass,
+3,npc_short_reply,dialogue,Rook,Answer after player asks for help,Not my problem.,무뚝뚝한 반말,,짧은 대사의 말맛,내 알 바 아니야.,9,low,,pass,
+4,npc_player_name,dialogue,Rook,Player returned from dungeon,"You made it back alive, {playerName}.",무뚝뚝한 반말,{playerName},placeholder 보존과 자연스러운 주어 생략,"살아서 돌아왔네, {playerName}.",9,low,{playerName},pass,
+4,ui_damage_format,combat,System,Damage tooltip,Deals %s fire damage.,간결한 전투 설명,%s,printf placeholder 보존,%s의 화염 피해를 줍니다.,9,low,%s,pass,
+4,ui_count_format,ui,System,Inventory count,You have {count} keys.,간결한 UI 문체,{count},수량 변수 보존,열쇠 {count}개 보유 중,9,low,{count},pass,

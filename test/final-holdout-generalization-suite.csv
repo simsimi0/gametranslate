@@ -1,0 +1,40 @@
+﻿difficulty,key,category,speaker,context,source_en,style_guide,required_preserve,expected_challenge
+1,holdout_v2_ui_new_game,ui,System,Title screen button,New Journey,짧은 UI 버튼,,기본 메뉴 번역
+1,holdout_v2_ui_continue,ui,System,Title screen button,Resume,짧은 UI 버튼,,짧은 UI 용어 선택
+1,holdout_v2_item_herb,item,System,Inventory item name,Bitter Herb,아이템명은 짧게,,기본 아이템명
+2,holdout_v2_save_done,ui,System,After autosave,Progress recorded.,간결한 시스템 문구,,자연스러운 저장 완료 문구
+2,holdout_v2_item_desc,item,System,Item tooltip,Restores 30 stamina.,짧은 설명문,30,숫자와 게임 용어 유지
+2,holdout_v2_button_track,ui,System,Quest log button,Track Objective,짧은 버튼 문구,,명령형 UI 번역
+3,holdout_v2_rook_mock,dialogue,Rook,Player picked wrong path,"Wrong way. Again.",무뚝뚝한 반말,,짧은 비꼼 대사
+3,holdout_v2_mira_calm,dialogue,Mira,Before entering ruins,"Please stay close. The ruins shift after sunset.",차분한 존댓말,,존댓말과 경고
+3,holdout_v2_child_lost,dialogue,Lio,Child asks for help,"My kite went over the wall.",어린아이 말투,,캐릭터 나이감
+4,holdout_v2_name_token,dialogue,Mira,Greeting player by name,"I'm glad you came, {heroName}.",차분한 존댓말,{heroName},placeholder 보존
+4,holdout_v2_damage_token,combat,System,Poison tooltip,"Deals %d poison damage each turn.",전투 설명,%d,printf 토큰 보존
+4,holdout_v2_count_token,ui,System,Shop stock,"Only {stock} left in storage.",짧은 UI 문구,{stock},수량 변수 보존
+5,holdout_v2_newline_dialogue,dialogue,Rook,After trap triggers,"Quiet.\nSomething moved below us.",짧고 긴장감 있는 반말,\n,문자열 줄바꿈 보존
+5,holdout_v2_tab_debug,system,System,Debug warning,"Invalid entry:\t{entryId}",기술 문구는 의미 우선,"\t {entryId}",탭 escape와 변수 보존
+5,holdout_v2_stutter,dialogue,Lio,Scared child,"I-I heard it too.\nBehind the door.",어린아이 말투,\n,말더듬과 줄바꿈
+6,holdout_v2_bold_label,ui,System,Warning popup,"<b>Locked:</b> Find another route.",간결한 경고,<b> </b>,HTML 유사 태그 보존
+6,holdout_v2_color_status,ui,System,Status gain popup,"<color=#55CC77>Regeneration</color> applied.",상태효과 알림,<color=#55CC77> </color>,색상 태그 보존
+6,holdout_v2_bb_reward,ui,System,Loot popup,"Obtained [rare]{itemName}[/rare] x%d.",획득 메시지,"[rare] [/rare] {itemName} %d",BBCode와 변수 보존
+7,holdout_v2_charge_battery,ui,System,Device menu button,Charge Cell,장치 UI 문맥,,충전/돌진 중의성
+7,holdout_v2_charge_attack,combat,System,Enemy action,The boar charges forward.,전투 로그,,돌진 의미 처리
+7,holdout_v2_archive,ui,System,File menu button,Archive Save,저장 파일 관리 문맥,,보관/기록/저장 문맥
+8,holdout_v2_idiom_rook,dialogue,Rook,Before risky shortcut,"Don't push your luck.",무뚝뚝한 반말,,관용구 현지화
+8,holdout_v2_sarcasm_juno,dialogue,Juno,Machine breaks again,"Fantastic. It exploded less this time.",가벼운 비꼼,,비꼼과 농담
+8,holdout_v2_polite_threat,dialogue,Valen,Blocking the player,"I suggest you reconsider before I stop suggesting.",정중하지만 위협적,,간접 위협
+9,holdout_v2_lore_relic,lore,System,Relic description,"A crown of glass that remembers every hand it cut.",어두운 판타지 문어체,,문학적 표현
+9,holdout_v2_sage_line,dialogue,Elder,Prophecy fragment,"The river keeps no promises to those who name it home.",고풍스러운 예언체,,추상적 예언 문장
+9,holdout_v2_poetic_weapon,item,System,Weapon description,"A spear humming softly with winter's last breath.",시적인 아이템 설명,,과한 직역 방지
+10,holdout_v2_pun_skeleton,dialogue,Juno,After skeleton boss falls,"That fight was bone-dry.",농담은 한국어로 자연스럽게 현지화,,말장난 현지화
+10,holdout_v2_meme_rook,dialogue,Rook,Player fails puzzle repeatedly,"I'm starting to respect the door.",건조한 비꼼,,밈성 대사 자연화
+10,holdout_v2_odds_mira,dialogue,Mira,Before impossible fight,"The numbers are unkind, but not final.",차분한 존댓말,,추상적 격려
+11,holdout_v2_unknown_gender,dialogue,Narrator,Unknown rescuer appears,"A figure reached out, keeping their face hidden.",성별 단정 금지,,대명사 처리
+11,holdout_v2_unknown_alex,dialogue,Juno,Talking about Alex,"Alex left their tools here again.",성별/관계 단정 금지,Alex,정보 부족 처리
+11,holdout_v2_fragment_status,ui,System,Passive effect label,After dodge: next hit +20%,짧은 상태효과,+20%,문장 조각 자연화
+12,holdout_v2_complex_boss,dialogue,Rook,Boss entrance,"<b>{enemyName}</b>?\nI've seen scarier statues, %s.",비꼬는 반말,"<b> </b> {enemyName} \n %s",태그/변수/말투 동시 처리
+12,holdout_v2_complex_shop,ui,System,Limited-time shop,"Reserve {itemName} for %04d coins within %.2f seconds.",간결한 상점 UI,"{itemName} %04d %.2f",복수 포맷 보존
+12,holdout_v2_complex_lore,dialogue,Elder,Final warning,"When the black bell rings, even mercy will ask your name.",고풍스럽고 어두운 예언체,,추상 문장과 분위기
+13,holdout_v2_rpgmaker_control,dialogue,System,RPG Maker message,"\\C[1]{actor}\\C[0] found \\I[82] %s x%d.\nStore it now?",RPG Maker 제어문자 보존,"\\C[1] \\C[0] \\I[82] {actor} %s %d \n",엔진 제어문자 스트레스 테스트
+13,holdout_v2_godot_percent,ui,System,Godot-style formatted label,"Wave %03d cleared: {survivors}/{total} survived.",포맷 보존,"%03d {survivors} {total}",복합 UI 포맷
+13,holdout_v2_lua_concat_hint,system,System,Lua localization value,"HP low: %s has %.1f%% remaining.",기술/전투 로그,"%s %.1f%%",퍼센트 이스케이프와 printf 보존

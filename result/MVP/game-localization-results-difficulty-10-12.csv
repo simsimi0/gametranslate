@@ -1,0 +1,10 @@
+﻿difficulty,key,category,speaker,context,source_en,style_guide,required_preserve,expected_challenge,translation_ko,naturalness_score,translationese_risk,preserved_tokens,validation_status,validation_errors
+10,pun_dialogue,dialogue,Rook,After defeating a mushroom monster,Guess he wasn't a fun guy after all.,농담은 한국어로 자연스럽게 현지화,,말장난 현지화,버섯이라더니 재미는 곰팡이 폈네.,8,low,,pass,
+10,meme_like_dialogue,dialogue,Rook,After repeated player failure,"At this point, I'm impressed.",비꼬지만 과하지 않게,,밈 느낌의 자연화,이쯤 되면 감탄이 다 나오네.,8,low,,pass,
+10,cultural_reference,dialogue,Mira,Light joke about impossible odds,Those odds are not exactly in our favor.,차분한 존댓말,,문화적 표현을 자연스럽게 변환,"상황은 불리하지만, 아직 끝난 건 아닙니다.",8,low,,pass,
+11,gender_ambiguous_dialogue,dialogue,Narrator,Unknown character enters room,"They stepped forward, hiding their face beneath the hood.",성별을 단정하지 않음,,영어 they 처리,그래.,8,low,,pass,
+11,relationship_ambiguous,dialogue,Mira,Talking about Alex without context,Alex said they would wait for us.,성별/관계 단정 금지,Alex,대명사 정보 부족 처리,Alex가 우리를 기다리겠다고 했어요.,8,low,Alex,pass,
+11,fragment_ui,ui,System,Status effect label,On hit: +15% chance to bleed,짧은 상태효과 문구,+15%,문장 조각 자연화,적중 시: 출혈 확률 +15%,8,low,+15%,pass,
+12,complex_all_in_one,dialogue,Rook,Boss intro line,"<b>{bossName}</b>? Hah.\nI thought you'd be taller, %s.",무뚝뚝하고 비꼬는 반말,<b> </b> {bossName} \n %s,태그/변수/말투/농담 동시 처리,"<b>{bossName}</b>?\n%s, 생각보다 별거 아니네.",8,low,{bossName} %s \n <b> </b>,pass,
+12,complex_shop_tooltip,ui,System,Shop tooltip with limit,Buy {itemName} for %d gold? You have %.1f seconds to confirm.,간결한 상점 UI,{itemName} %d %.1f,복수 placeholder와 UI 길이,{itemName}을(를) %d 골드에 구매할까요? %.1f초 안에 확인하세요.,8,low,{itemName} %d %.1f,pass,
+12,complex_lore_dialogue,dialogue,Elder,Final prophecy,"When the last bell breaks, remember: mercy is a debt the dead always collect.",고풍스럽고 어두운 예언체,,추상적 의미와 분위기 유지,"마지막 종이 부서지는 날, 기억하라. 자비란 죽은 자들이 반드시 거두어 가는 빚이니.",8,low,,pass,

@@ -1,6 +1,9 @@
-import { isInRange, localizeRows, parseCsv, summarizeRows, toCsv } from "./localizer.js";
+import { isInRange, localizeRows, parseCsv, resultHeaders, summarizeRows, toCsvWithBom } from "./localizer.js";
+import { OpenAITranslator } from "./openai-translator.js";
 
 const fileInput = document.querySelector("#csvFile");
+const apiKeyInput = document.querySelector("#apiKey");
+const modelInput = document.querySelector("#modelName");
 const translateButton = document.querySelector("#translateBtn");
 const downloadButton = document.querySelector("#downloadBtn");
 const fileStatus = document.querySelector("#fileStatus");
@@ -36,25 +39,27 @@ fileInput.addEventListener("change", async (event) => {
   updateMetrics(summarizeRows(originalRows));
 });
 
-translateButton.addEventListener("click", () => {
-  localizedRows = localizeRows(originalRows, { range: selectedRange });
+translateButton.addEventListener("click", async () => {
+  translateButton.disabled = true;
+  downloadButton.disabled = true;
+  fileStatus.textContent = "번역 중...";
+
+  const translator = new OpenAITranslator({
+    apiKey: apiKeyInput.value.trim(),
+    model: modelInput.value.trim() || undefined
+  });
+
+  localizedRows = await localizeRows(originalRows, translator, { range: selectedRange });
   downloadButton.disabled = localizedRows.every((row) => !row.translation_ko);
+  translateButton.disabled = originalRows.length === 0;
+  fileStatus.textContent = `${localizedRows.length} rows processed`;
   renderRows(localizedRows);
   updateMetrics(summarizeRows(localizedRows));
 });
 
 downloadButton.addEventListener("click", () => {
-  const headers = [
-    ...originalHeaders,
-    "translation_ko",
-    "naturalness_score",
-    "translationese_risk",
-    "preserved_tokens",
-    "validation_status",
-    "validation_errors"
-  ];
-  const csv = toCsv(localizedRows, headers);
-  const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" });
+  const csv = toCsvWithBom(localizedRows, resultHeaders(originalHeaders));
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;

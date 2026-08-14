@@ -1,0 +1,41 @@
+﻿difficulty,key,category,speaker,context,source_en,style_guide,required_preserve,expected_challenge
+1,retest_v3_ui_launch,ui,System,Camp screen primary action,Set Out,짧은 UI 버튼,,기본 UI 버튼
+1,retest_v3_ui_codex,ui,System,Notebook menu entry,Field Notes,,,메뉴 용어 선택
+1,retest_v3_item_charm,item,System,Small accessory name,Tin Charm,아이템명은 짧게,,기본 아이템명
+2,retest_v3_sync_done,ui,System,Cloud sync completion,Data synced.,간결한 시스템 문구,,완료 메시지
+2,retest_v3_food_desc,item,System,Snack tooltip,Recovers 12 focus.,,12,숫자 보존
+2,retest_v3_button_mark,ui,System,Map marker command,Mark Location,짧은 버튼 문구,,명령형 UI
+3,retest_v3_dry_reply,dialogue,Brann,Player slips on ice,"Smooth. Very smooth.",건조한 반말,,짧은 비꼼
+3,retest_v3_soft_warning,dialogue,Ella,NPC warns near bridge,"Keep your voice down. The bridge listens.",차분한 존댓말,,경고와 분위기
+3,retest_v3_child_found,dialogue,Nim,Child finds object,I found a shiny button.,어린아이 말투,,어린 말투
+4,retest_v3_name_token,dialogue,Ella,NPC greets player,"You are late, {captainName}.",차분한 존댓말,{captainName},placeholder 보존
+4,retest_v3_bleed_token,combat,System,Combat effect tooltip,Causes %d bleed for 2 rounds.,전투 설명,%d,printf 보존
+4,retest_v3_resource_count,ui,System,Crafting storage,"Materials: {current}/{needed}",짧은 UI 문구,"{current} {needed}",복수 placeholder
+5,retest_v3_newline_silence,dialogue,Brann,Before ambush,"Down.\nLights ahead.",짧은 반말,\n,줄바꿈 보존
+5,retest_v3_tab_error,system,System,Parser warning,"Unknown flag:\t%s",기술 문구,"\t %s",탭 escape 보존
+5,retest_v3_panic_child,dialogue,Nim,Child hides,"Wait...\nWhere did everyone go?",어린아이 말투,\n,감정과 줄바꿈
+6,retest_v3_bold_denied,ui,System,Access popup,"<b>Denied:</b> Badge required.",간결한 경고,<b> </b>,태그 보존
+6,retest_v3_color_frozen,ui,System,Status popup,"<color=#88AAFF>Frozen</color> until next turn.",상태효과 알림,<color=#88AAFF> </color>,색상 태그 보존
+6,retest_v3_bb_companion,ui,System,Party notice,"[ally]{allyName}[/ally] joined rank %d.",동료 알림,"[ally] [/ally] {allyName} %d",BBCode 보존
+7,retest_v3_cast_vote,ui,System,Council choice command,Cast Vote,투표 UI 문맥,,중의어 Cast
+7,retest_v3_cast_spell,combat,System,Mage combat action,The witch casts a ward.,전투 로그,,같은 단어 다른 의미
+7,retest_v3_port_signal,ui,System,Network settings label,Open Port,설정 UI 문맥,,Port 중의성
+8,retest_v3_idiom_brann,dialogue,Brann,Plan starts going badly,"This is going sideways fast.",무뚝뚝한 반말,,관용구 현지화
+8,retest_v3_sarcasm_tech,dialogue,Iris,Robot reboots late,"Perfect timing, as always.",가벼운 비꼼,,비꼼
+8,retest_v3_polite_danger,dialogue,Maris,Guard blocks passage,"Please do not make me repeat the warning.",정중하지만 단호함,,간접 위협
+9,retest_v3_lore_mirror,lore,System,Cursed mirror description,"A mirror that shows the room after you leave it.",어두운 판타지 문어체,,문학적 표현
+9,retest_v3_oracle_tide,dialogue,Seer,Prophecy shard,"The tide remembers feet that never touched the shore.",고풍스러운 예언체,,추상 문장
+9,retest_v3_poetic_boots,item,System,Equipment description,"Boots lined with the quiet of old snow.",시적인 아이템 설명,,과한 직역 방지
+10,retest_v3_pun_robot,dialogue,Iris,After defeating broken robot,"Guess it finally lost its drive.",농담은 자연스럽게,,말장난
+10,retest_v3_meme_brann,dialogue,Brann,Player stares at locked chest,"At this rate, the chest retires first.",건조한 비꼼,,밈성 대사
+10,retest_v3_risk_ella,dialogue,Ella,Before risky gamble,"The odds are ugly, but they are still odds.",차분한 존댓말,,문화적 표현
+11,retest_v3_unknown_runner,dialogue,Narrator,Unidentified runner appears,"A runner passed by, hiding their badge.",성별 단정 금지,,대명사 처리
+11,retest_v3_unknown_taylor,dialogue,Iris,Talking about Taylor,Taylor left their radio on.,성별/관계 단정 금지,Taylor,성별 단정 금지
+11,retest_v3_fragment_focus,ui,System,Passive effect label,When focused: cooldown -1,짧은 상태효과,-1,문장 조각
+12,retest_v3_complex_duel,dialogue,Brann,Duel intro,"<u>{duelist}</u>?\nTell %s to pick a better coat.",비꼬는 반말,"<u> </u> {duelist} \n %s",복합 포맷
+12,retest_v3_complex_upgrade,ui,System,Upgrade confirmation,"Upgrade {module} using %03d parts at %.1f%% risk?",간결한 강화 UI,"{module} %03d %.1f%%",복수 포맷
+12,retest_v3_complex_seer,dialogue,Seer,Final omen,"When white crows gather, silence will choose a king.",고풍스럽고 어두운 예언체,,추상 문장
+13,retest_v3_rpgmaker_codes,dialogue,System,RPG Maker control text,"\\C[6]{unit}\\C[0] gained \\I[45] %s x%02d.\nEquip now?",RPG Maker 제어문자 보존,"\\C[6] \\C[0] \\I[45] {unit} %s %02d \n",엔진 제어문자
+13,retest_v3_godot_meter,ui,System,Godot format label,"Sector %02d: {online}/{total} online.",포맷 보존,"%02d {online} {total}",복합 UI 포맷
+13,retest_v3_lua_escape,system,System,Lua status string,"Oxygen: %s at %.0f%%, leak %+d.",기술 로그,"%s %.0f%% %+d",퍼센트/부호 포맷
+

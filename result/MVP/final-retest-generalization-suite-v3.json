@@ -1,0 +1,401 @@
+{
+  "meta": {
+    "format": "game-localization-mvp-v1",
+    "source_file": "final-retest-generalization-suite-v3.csv",
+    "source_locale": "en",
+    "target_locale": "ko-KR",
+    "row_count": 39
+  },
+  "entries": {
+    "retest_v3_ui_launch": {
+      "source_en": "Set Out",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Camp screen primary action",
+      "style_guide": "짧은 UI 버튼",
+      "required_preserve": "",
+      "difficulty": 1
+    },
+    "retest_v3_ui_codex": {
+      "source_en": "Field Notes",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Notebook menu entry",
+      "style_guide": "",
+      "required_preserve": "",
+      "difficulty": 1
+    },
+    "retest_v3_item_charm": {
+      "source_en": "Tin Charm",
+      "translation_ko": "",
+      "category": "item",
+      "speaker": "System",
+      "context": "Small accessory name",
+      "style_guide": "아이템명은 짧게",
+      "required_preserve": "",
+      "difficulty": 1
+    },
+    "retest_v3_sync_done": {
+      "source_en": "Data synced.",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Cloud sync completion",
+      "style_guide": "간결한 시스템 문구",
+      "required_preserve": "",
+      "difficulty": 2
+    },
+    "retest_v3_food_desc": {
+      "source_en": "Recovers 12 focus.",
+      "translation_ko": "",
+      "category": "item",
+      "speaker": "System",
+      "context": "Snack tooltip",
+      "style_guide": "",
+      "required_preserve": "12",
+      "difficulty": 2
+    },
+    "retest_v3_button_mark": {
+      "source_en": "Mark Location",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Map marker command",
+      "style_guide": "짧은 버튼 문구",
+      "required_preserve": "",
+      "difficulty": 2
+    },
+    "retest_v3_dry_reply": {
+      "source_en": "Smooth. Very smooth.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Brann",
+      "context": "Player slips on ice",
+      "style_guide": "건조한 반말",
+      "required_preserve": "",
+      "difficulty": 3
+    },
+    "retest_v3_soft_warning": {
+      "source_en": "Keep your voice down. The bridge listens.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Ella",
+      "context": "NPC warns near bridge",
+      "style_guide": "차분한 존댓말",
+      "required_preserve": "",
+      "difficulty": 3
+    },
+    "retest_v3_child_found": {
+      "source_en": "I found a shiny button.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Nim",
+      "context": "Child finds object",
+      "style_guide": "어린아이 말투",
+      "required_preserve": "",
+      "difficulty": 3
+    },
+    "retest_v3_name_token": {
+      "source_en": "You are late, {captainName}.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Ella",
+      "context": "NPC greets player",
+      "style_guide": "차분한 존댓말",
+      "required_preserve": "{captainName}",
+      "difficulty": 4
+    },
+    "retest_v3_bleed_token": {
+      "source_en": "Causes %d bleed for 2 rounds.",
+      "translation_ko": "",
+      "category": "combat",
+      "speaker": "System",
+      "context": "Combat effect tooltip",
+      "style_guide": "전투 설명",
+      "required_preserve": "%d",
+      "difficulty": 4
+    },
+    "retest_v3_resource_count": {
+      "source_en": "Materials: {current}/{needed}",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Crafting storage",
+      "style_guide": "짧은 UI 문구",
+      "required_preserve": "{current} {needed}",
+      "difficulty": 4
+    },
+    "retest_v3_newline_silence": {
+      "source_en": "Down.\\nLights ahead.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Brann",
+      "context": "Before ambush",
+      "style_guide": "짧은 반말",
+      "required_preserve": "\\n",
+      "difficulty": 5
+    },
+    "retest_v3_tab_error": {
+      "source_en": "Unknown flag:\\t%s",
+      "translation_ko": "",
+      "category": "system",
+      "speaker": "System",
+      "context": "Parser warning",
+      "style_guide": "기술 문구",
+      "required_preserve": "\\t %s",
+      "difficulty": 5
+    },
+    "retest_v3_panic_child": {
+      "source_en": "Wait...\\nWhere did everyone go?",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Nim",
+      "context": "Child hides",
+      "style_guide": "어린아이 말투",
+      "required_preserve": "\\n",
+      "difficulty": 5
+    },
+    "retest_v3_bold_denied": {
+      "source_en": "<b>Denied:</b> Badge required.",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Access popup",
+      "style_guide": "간결한 경고",
+      "required_preserve": "<b> </b>",
+      "difficulty": 6
+    },
+    "retest_v3_color_frozen": {
+      "source_en": "<color=#88AAFF>Frozen</color> until next turn.",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Status popup",
+      "style_guide": "상태효과 알림",
+      "required_preserve": "<color=#88AAFF> </color>",
+      "difficulty": 6
+    },
+    "retest_v3_bb_companion": {
+      "source_en": "[ally]{allyName}[/ally] joined rank %d.",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Party notice",
+      "style_guide": "동료 알림",
+      "required_preserve": "[ally] [/ally] {allyName} %d",
+      "difficulty": 6
+    },
+    "retest_v3_cast_vote": {
+      "source_en": "Cast Vote",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Council choice command",
+      "style_guide": "투표 UI 문맥",
+      "required_preserve": "",
+      "difficulty": 7
+    },
+    "retest_v3_cast_spell": {
+      "source_en": "The witch casts a ward.",
+      "translation_ko": "",
+      "category": "combat",
+      "speaker": "System",
+      "context": "Mage combat action",
+      "style_guide": "전투 로그",
+      "required_preserve": "",
+      "difficulty": 7
+    },
+    "retest_v3_port_signal": {
+      "source_en": "Open Port",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Network settings label",
+      "style_guide": "설정 UI 문맥",
+      "required_preserve": "",
+      "difficulty": 7
+    },
+    "retest_v3_idiom_brann": {
+      "source_en": "This is going sideways fast.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Brann",
+      "context": "Plan starts going badly",
+      "style_guide": "무뚝뚝한 반말",
+      "required_preserve": "",
+      "difficulty": 8
+    },
+    "retest_v3_sarcasm_tech": {
+      "source_en": "Perfect timing, as always.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Iris",
+      "context": "Robot reboots late",
+      "style_guide": "가벼운 비꼼",
+      "required_preserve": "",
+      "difficulty": 8
+    },
+    "retest_v3_polite_danger": {
+      "source_en": "Please do not make me repeat the warning.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Maris",
+      "context": "Guard blocks passage",
+      "style_guide": "정중하지만 단호함",
+      "required_preserve": "",
+      "difficulty": 8
+    },
+    "retest_v3_lore_mirror": {
+      "source_en": "A mirror that shows the room after you leave it.",
+      "translation_ko": "",
+      "category": "lore",
+      "speaker": "System",
+      "context": "Cursed mirror description",
+      "style_guide": "어두운 판타지 문어체",
+      "required_preserve": "",
+      "difficulty": 9
+    },
+    "retest_v3_oracle_tide": {
+      "source_en": "The tide remembers feet that never touched the shore.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Seer",
+      "context": "Prophecy shard",
+      "style_guide": "고풍스러운 예언체",
+      "required_preserve": "",
+      "difficulty": 9
+    },
+    "retest_v3_poetic_boots": {
+      "source_en": "Boots lined with the quiet of old snow.",
+      "translation_ko": "",
+      "category": "item",
+      "speaker": "System",
+      "context": "Equipment description",
+      "style_guide": "시적인 아이템 설명",
+      "required_preserve": "",
+      "difficulty": 9
+    },
+    "retest_v3_pun_robot": {
+      "source_en": "Guess it finally lost its drive.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Iris",
+      "context": "After defeating broken robot",
+      "style_guide": "농담은 자연스럽게",
+      "required_preserve": "",
+      "difficulty": 10
+    },
+    "retest_v3_meme_brann": {
+      "source_en": "At this rate, the chest retires first.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Brann",
+      "context": "Player stares at locked chest",
+      "style_guide": "건조한 비꼼",
+      "required_preserve": "",
+      "difficulty": 10
+    },
+    "retest_v3_risk_ella": {
+      "source_en": "The odds are ugly, but they are still odds.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Ella",
+      "context": "Before risky gamble",
+      "style_guide": "차분한 존댓말",
+      "required_preserve": "",
+      "difficulty": 10
+    },
+    "retest_v3_unknown_runner": {
+      "source_en": "A runner passed by, hiding their badge.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Narrator",
+      "context": "Unidentified runner appears",
+      "style_guide": "성별 단정 금지",
+      "required_preserve": "",
+      "difficulty": 11
+    },
+    "retest_v3_unknown_taylor": {
+      "source_en": "Taylor left their radio on.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Iris",
+      "context": "Talking about Taylor",
+      "style_guide": "성별/관계 단정 금지",
+      "required_preserve": "Taylor",
+      "difficulty": 11
+    },
+    "retest_v3_fragment_focus": {
+      "source_en": "When focused: cooldown -1",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Passive effect label",
+      "style_guide": "짧은 상태효과",
+      "required_preserve": "-1",
+      "difficulty": 11
+    },
+    "retest_v3_complex_duel": {
+      "source_en": "<u>{duelist}</u>?\\nTell %s to pick a better coat.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Brann",
+      "context": "Duel intro",
+      "style_guide": "비꼬는 반말",
+      "required_preserve": "<u> </u> {duelist} \\n %s",
+      "difficulty": 12
+    },
+    "retest_v3_complex_upgrade": {
+      "source_en": "Upgrade {module} using %03d parts at %.1f%% risk?",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Upgrade confirmation",
+      "style_guide": "간결한 강화 UI",
+      "required_preserve": "{module} %03d %.1f%%",
+      "difficulty": 12
+    },
+    "retest_v3_complex_seer": {
+      "source_en": "When white crows gather, silence will choose a king.",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "Seer",
+      "context": "Final omen",
+      "style_guide": "고풍스럽고 어두운 예언체",
+      "required_preserve": "",
+      "difficulty": 12
+    },
+    "retest_v3_rpgmaker_codes": {
+      "source_en": "\\\\C[6]{unit}\\\\C[0] gained \\\\I[45] %s x%02d.\\nEquip now?",
+      "translation_ko": "",
+      "category": "dialogue",
+      "speaker": "System",
+      "context": "RPG Maker control text",
+      "style_guide": "RPG Maker 제어문자 보존",
+      "required_preserve": "\\\\C[6] \\\\C[0] \\\\I[45] {unit} %s %02d \\n",
+      "difficulty": 13
+    },
+    "retest_v3_godot_meter": {
+      "source_en": "Sector %02d: {online}/{total} online.",
+      "translation_ko": "",
+      "category": "ui",
+      "speaker": "System",
+      "context": "Godot format label",
+      "style_guide": "포맷 보존",
+      "required_preserve": "%02d {online} {total}",
+      "difficulty": 13
+    },
+    "retest_v3_lua_escape": {
+      "source_en": "Oxygen: %s at %.0f%%, leak %+d.",
+      "translation_ko": "",
+      "category": "system",
+      "speaker": "System",
+      "context": "Lua status string",
+      "style_guide": "기술 로그",
+      "required_preserve": "%s %.0f%% %+d",
+      "difficulty": 13
+    }
+  }
+}

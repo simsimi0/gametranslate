@@ -22,11 +22,6 @@ public class LocalizationController {
     this.localizationService = localizationService;
   }
 
-  @GetMapping("/")
-  public HealthResponse index() {
-    return localizationService.health();
-  }
-
   @GetMapping("/api/health")
   public HealthResponse health() {
     return localizationService.health();

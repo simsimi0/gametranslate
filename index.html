@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Localization MVP</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Indie Game Localization</p>
+            <h1>CSV Localizer</h1>
+          </div>
+          <div class="actions">
+            <label class="file-button" for="csvFile">CSV 선택</label>
+            <input id="csvFile" type="file" accept=".csv,text/csv" />
+            <button id="translateBtn" type="button" disabled>번역 실행</button>
+            <button id="downloadBtn" type="button" disabled>CSV 다운로드</button>
+          </div>
+        </header>
+
+        <section class="control-row" aria-label="filter controls">
+          <div class="segmented" role="group" aria-label="difficulty range">
+            <button type="button" class="active" data-range="1-4">1-4</button>
+            <button type="button" data-range="5-6">5-6</button>
+            <button type="button" data-range="all">전체</button>
+          </div>
+          <div class="status-line" id="fileStatus">CSV를 선택하세요.</div>
+        </section>
+
+        <section class="metrics" aria-label="validation summary">
+          <div>
+            <span id="totalRows">0</span>
+            <label>rows</label>
+          </div>
+          <div>
+            <span id="translatedRows">0</span>
+            <label>translated</label>
+          </div>
+          <div>
+            <span id="passedRows">0</span>
+            <label>valid</label>
+          </div>
+          <div>
+            <span id="failedRows">0</span>
+            <label>failed</label>
+          </div>
+        </section>
+
+        <section class="table-wrap" aria-label="localized rows">
+          <table>
+            <thead>
+              <tr>
+                <th>난이도</th>
+                <th>key</th>
+                <th>source_en</th>
+                <th>translation_ko</th>
+                <th>검증</th>
+              </tr>
+            </thead>
+            <tbody id="rowsBody">
+              <tr>
+                <td colspan="5" class="empty">업로드된 CSV가 없습니다.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

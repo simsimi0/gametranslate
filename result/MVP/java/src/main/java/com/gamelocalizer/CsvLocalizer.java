@@ -133,8 +133,16 @@ public final class CsvLocalizer {
     String generatedAt = Instant.now().toString();
     List<Map<String, String>> localized = new ArrayList<>();
 
+    if (translator.supportsBatch()) {
+      List<TranslationAttempt> translations = translateBatch(targets, translator);
+      for (int i = 0; i < targets.size(); i += 1) {
+        localized.add(localizeRow(targets.get(i), translator, generatedAt, sourceFile, targets.size(), translations.get(i)));
+      }
+      return localized;
+    }
+
     for (Map<String, String> row : targets) {
-      localized.add(localizeRow(row, translator, generatedAt, sourceFile, targets.size()));
+      localized.add(localizeRow(row, translator, generatedAt, sourceFile, targets.size(), null));
     }
 
     return localized;
@@ -156,16 +164,26 @@ public final class CsvLocalizer {
   }
 
   private static Map<String, String> localizeRow(
-      Map<String, String> row, Translator translator, String generatedAt, String sourceFile, int rowCount) {
+      Map<String, String> row,
+      Translator translator,
+      String generatedAt,
+      String sourceFile,
+      int rowCount,
+      TranslationAttempt attempt) {
     Map<String, String> result = new LinkedHashMap<>(row);
     String translatorError = "";
     TranslationResult translation;
 
-    try {
-      translation = translator.translate(row);
-    } catch (Exception error) {
-      translation = new TranslationResult("", "", "high");
-      translatorError = error.getMessage() == null ? error.toString() : error.getMessage();
+    if (attempt != null) {
+      translation = attempt.result();
+      translatorError = attempt.error();
+    } else {
+      try {
+        translation = translator.translate(row);
+      } catch (Exception error) {
+        translation = new TranslationResult("", "", "high");
+        translatorError = error.getMessage() == null ? error.toString() : error.getMessage();
+      }
     }
 
     result.put("translation_ko", translation.translationKo());
@@ -186,6 +204,28 @@ public final class CsvLocalizer {
     result.put("validation_status", validation.errors().isEmpty() ? "pass" : "fail");
     result.put("validation_errors", String.join("; ", validation.errors()));
     return result;
+  }
+
+  private static List<TranslationAttempt> translateBatch(List<Map<String, String>> targets, Translator translator) {
+    try {
+      List<TranslationResult> results = translator.translateAll(targets);
+      if (results.size() != targets.size()) {
+        throw new IllegalStateException(
+            "translator returned " + results.size() + " rows for " + targets.size() + " input rows");
+      }
+      List<TranslationAttempt> attempts = new ArrayList<>();
+      for (TranslationResult result : results) {
+        attempts.add(new TranslationAttempt(result, ""));
+      }
+      return attempts;
+    } catch (Exception error) {
+      String message = error.getMessage() == null ? error.toString() : error.getMessage();
+      List<TranslationAttempt> attempts = new ArrayList<>();
+      for (int i = 0; i < targets.size(); i += 1) {
+        attempts.add(new TranslationAttempt(new TranslationResult("", "", "high"), message));
+      }
+      return attempts;
+    }
   }
 
   private static Validation validateRow(Map<String, String> sourceRow, Map<String, String> resultRow) {
@@ -271,4 +311,6 @@ public final class CsvLocalizer {
       return new Validation(preservedTokens, next);
     }
   }
+
+  private record TranslationAttempt(TranslationResult result, String error) {}
 }

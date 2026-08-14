@@ -164,6 +164,11 @@ export async function localizeRows(rows, translator, options = {}) {
     rowCount: options.rowCount ?? options.row_count ?? targetRows.length
   });
 
+  if (typeof translator.translateAll === "function") {
+    const translations = await translateRows(targetRows, translator);
+    return targetRows.map((row, index) => localizeTranslatedRow(row, translator, metadata, translations[index]));
+  }
+
   for (const row of targetRows) {
     localized.push(await localizeRow(row, translator, metadata));
   }
@@ -199,6 +204,52 @@ export async function localizeRow(row, translator, metadataOptions = {}) {
   if (translatorError) {
     validation.validation_status = "fail";
     validation.validation_errors = [validation.validation_errors, `translator error: ${translatorError}`]
+      .filter(Boolean)
+      .join("; ");
+  }
+
+  return {
+    ...result,
+    ...validation
+  };
+}
+
+async function translateRows(rows, translator) {
+  try {
+    const payloads = await translator.translateAll(rows);
+    if (!Array.isArray(payloads) || payloads.length !== rows.length) {
+      throw new Error(`translator returned ${payloads?.length ?? 0} rows for ${rows.length} input rows`);
+    }
+    return payloads.map((payload) => ({
+      translation: normalizeTranslatorResult(payload),
+      translatorError: ""
+    }));
+  } catch (error) {
+    const translatorError = error instanceof Error ? error.message : String(error);
+    return rows.map(() => ({
+      translation: {
+        translation_ko: "",
+        naturalness_score: "",
+        translationese_risk: "high"
+      },
+      translatorError
+    }));
+  }
+}
+
+function localizeTranslatedRow(row, translator, metadata, attempt) {
+  const result = {
+    ...row,
+    translation_ko: attempt.translation.translation_ko,
+    naturalness_score: attempt.translation.naturalness_score,
+    translationese_risk: attempt.translation.translationese_risk,
+    ...metadata
+  };
+  const validation = validateRow(row, result);
+
+  if (attempt.translatorError) {
+    validation.validation_status = "fail";
+    validation.validation_errors = [validation.validation_errors, `translator error: ${attempt.translatorError}`]
       .filter(Boolean)
       .join("; ");
   }

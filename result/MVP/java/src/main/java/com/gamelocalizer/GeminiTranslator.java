@@ -49,8 +49,21 @@ public final class GeminiTranslator implements Translator {
 
   @Override
   public TranslationResult translate(Map<String, String> row) throws Exception {
+    return translateAll(List.of(row)).get(0);
+  }
+
+  @Override
+  public boolean supportsBatch() {
+    return true;
+  }
+
+  @Override
+  public List<TranslationResult> translateAll(List<Map<String, String>> rows) throws Exception {
     if (apiKey.isEmpty()) {
       throw new IllegalStateException("GOOGLE_API_KEY or GEMINI_API_KEY is required for Gemini translation.");
+    }
+    if (rows == null || rows.isEmpty()) {
+      return List.of();
     }
 
     HttpResponseData response =
@@ -59,7 +72,7 @@ public final class GeminiTranslator implements Translator {
             Map.of(
                 "x-goog-api-key", apiKey,
                 "Content-Type", "application/json"),
-            buildRequestBody(row));
+            buildRequestBody(rows));
 
     if (response.statusCode() < 200 || response.statusCode() >= 300) {
       String message = extractJsonString(response.body(), "message");
@@ -74,10 +87,7 @@ public final class GeminiTranslator implements Translator {
       throw new IOException("Gemini response did not include candidate text.");
     }
 
-    String translation = extractJsonString(outputText, "translation_ko");
-    String risk = extractJsonString(outputText, "translationese_risk");
-    String score = extractJsonScalar(outputText, "naturalness_score");
-    return new TranslationResult(translation, score, risk);
+    return parseBatchOutput(outputText, rows.size());
   }
 
   @Override
@@ -103,20 +113,39 @@ public final class GeminiTranslator implements Translator {
             + ":generateContent");
   }
 
-  private String buildRequestBody(Map<String, String> row) {
+  private String buildRequestBody(List<Map<String, String>> rows) {
     return "{"
         + "\"contents\":[{\"role\":\"user\",\"parts\":[{\"text\":"
-        + jsonString(buildPayload(row))
+        + jsonString(buildPayload(rows))
         + "}]}],"
         + "\"generationConfig\":{"
         + "\"responseMimeType\":\"application/json\","
         + "\"responseSchema\":"
-        + responseSchema()
+        + batchResponseSchema()
         + "}}";
   }
 
-  private String buildPayload(Map<String, String> row) {
+  private String buildPayload(List<Map<String, String>> rows) {
+    StringBuilder json = new StringBuilder("{\"task\":\"translate_source_en_to_korean_batch\",\"rules\":[");
+    json.append(jsonString("Use source_en as the text to translate.")).append(',');
+    json.append(jsonString("Use metadata only as context.")).append(',');
+    json.append(jsonString("Preserve required tokens exactly.")).append(',');
+    json.append(jsonString("Return one result for every input row in the same order.")).append(',');
+    json.append(jsonString("Return JSON only."));
+    json.append("],\"rows\":[");
+    for (int i = 0; i < rows.size(); i += 1) {
+      if (i > 0) {
+        json.append(',');
+      }
+      json.append(rowPayload(rows.get(i), i));
+    }
+    json.append("]}");
+    return json.toString();
+  }
+
+  private String rowPayload(Map<String, String> row, int index) {
     Map<String, String> fields = new LinkedHashMap<>();
+    fields.put("index", String.valueOf(index));
     fields.put("key", row.getOrDefault("key", ""));
     fields.put("category", row.getOrDefault("category", ""));
     fields.put("speaker", row.getOrDefault("speaker", ""));
@@ -125,12 +154,7 @@ public final class GeminiTranslator implements Translator {
     fields.put("style_guide", row.getOrDefault("style_guide", ""));
     fields.put("required_preserve", row.getOrDefault("required_preserve", ""));
 
-    StringBuilder json = new StringBuilder("{\"task\":\"translate_source_en_to_korean\",\"rules\":[");
-    json.append(jsonString("Use source_en as the text to translate.")).append(',');
-    json.append(jsonString("Use metadata only as context.")).append(',');
-    json.append(jsonString("Preserve required tokens exactly.")).append(',');
-    json.append(jsonString("Return JSON only."));
-    json.append("],\"row\":{");
+    StringBuilder json = new StringBuilder("{");
     boolean first = true;
     for (Map.Entry<String, String> entry : fields.entrySet()) {
       if (!first) {
@@ -139,7 +163,7 @@ public final class GeminiTranslator implements Translator {
       first = false;
       json.append(jsonString(entry.getKey())).append(':').append(jsonString(entry.getValue()));
     }
-    json.append("},\"required_tokens\":[");
+    json.append(",\"required_tokens\":[");
     List<String> tokens = CsvLocalizer.expectedRequiredTokens(row);
     for (int i = 0; i < tokens.size(); i += 1) {
       if (i > 0) {
@@ -151,15 +175,52 @@ public final class GeminiTranslator implements Translator {
     return json.toString();
   }
 
-  private static String responseSchema() {
+  private static String batchResponseSchema() {
     return "{"
         + "\"type\":\"object\","
-        + "\"required\":[\"translation_ko\",\"naturalness_score\",\"translationese_risk\"],"
+        + "\"required\":[\"results\"],"
         + "\"properties\":{"
+        + "\"results\":{\"type\":\"array\",\"items\":{"
+        + "\"type\":\"object\","
+        + "\"required\":[\"index\",\"translation_ko\",\"naturalness_score\",\"translationese_risk\"],"
+        + "\"properties\":{"
+        + "\"index\":{\"type\":\"integer\"},"
         + "\"translation_ko\":{\"type\":\"string\"},"
         + "\"naturalness_score\":{\"type\":\"integer\"},"
         + "\"translationese_risk\":{\"type\":\"string\",\"enum\":[\"low\",\"medium\",\"high\"]}"
+        + "}}}"
         + "}}";
+  }
+
+  private static List<TranslationResult> parseBatchOutput(String json, int expectedSize) throws IOException {
+    String resultsArray = extractJsonArray(json, "results");
+    if (resultsArray.isEmpty()) {
+      throw new IOException("Gemini response did not include results.");
+    }
+
+    List<String> objects = extractTopLevelObjects(resultsArray);
+    TranslationResult[] results = new TranslationResult[expectedSize];
+    for (int i = 0; i < objects.size(); i += 1) {
+      String object = objects.get(i);
+      int index = parseIndex(extractJsonScalar(object, "index"), i);
+      if (index < 0 || index >= expectedSize) {
+        continue;
+      }
+      results[index] =
+          new TranslationResult(
+              extractJsonString(object, "translation_ko"),
+              extractJsonScalar(object, "naturalness_score"),
+              extractJsonString(object, "translationese_risk"));
+    }
+
+    List<TranslationResult> output = new ArrayList<>();
+    for (int i = 0; i < expectedSize; i += 1) {
+      if (results[i] == null) {
+        throw new IOException("Gemini batch response missed row index " + i + ".");
+      }
+      output.add(results[i]);
+    }
+    return output;
   }
 
   static String extractJsonString(String json, String fieldName) {
@@ -211,6 +272,68 @@ public final class GeminiTranslator implements Translator {
       }
     }
     return values;
+  }
+
+  static String extractJsonArray(String json, String fieldName) {
+    if (json == null || fieldName == null) {
+      return "";
+    }
+    String needle = "\"" + fieldName + "\"";
+    int key = json.indexOf(needle);
+    if (key < 0) {
+      return "";
+    }
+    int colon = json.indexOf(':', key + needle.length());
+    if (colon < 0) {
+      return "";
+    }
+    int start = skipWhitespace(json, colon + 1);
+    if (start >= json.length() || json.charAt(start) != '[') {
+      return "";
+    }
+    int end = findMatchingJsonToken(json, start, '[', ']');
+    return end < 0 ? "" : json.substring(start, end + 1);
+  }
+
+  static List<String> extractTopLevelObjects(String arrayJson) {
+    List<String> objects = new ArrayList<>();
+    if (arrayJson == null || arrayJson.isEmpty()) {
+      return objects;
+    }
+    boolean inString = false;
+    boolean escaped = false;
+    int depth = 0;
+    int start = -1;
+    for (int i = 0; i < arrayJson.length(); i += 1) {
+      char current = arrayJson.charAt(i);
+      if (inString) {
+        if (escaped) {
+          escaped = false;
+        } else if (current == '\\') {
+          escaped = true;
+        } else if (current == '"') {
+          inString = false;
+        }
+        continue;
+      }
+      if (current == '"') {
+        inString = true;
+        continue;
+      }
+      if (current == '{') {
+        if (depth == 0) {
+          start = i;
+        }
+        depth += 1;
+      } else if (current == '}') {
+        depth -= 1;
+        if (depth == 0 && start >= 0) {
+          objects.add(arrayJson.substring(start, i + 1));
+          start = -1;
+        }
+      }
+    }
+    return objects;
   }
 
   static String extractJsonScalar(String json, String fieldName) {
@@ -330,6 +453,46 @@ public final class GeminiTranslator implements Translator {
       cursor += 1;
     }
     return cursor;
+  }
+
+  private static int findMatchingJsonToken(String text, int openIndex, char open, char close) {
+    boolean inString = false;
+    boolean escaped = false;
+    int depth = 0;
+    for (int i = openIndex; i < text.length(); i += 1) {
+      char current = text.charAt(i);
+      if (inString) {
+        if (escaped) {
+          escaped = false;
+        } else if (current == '\\') {
+          escaped = true;
+        } else if (current == '"') {
+          inString = false;
+        }
+        continue;
+      }
+      if (current == '"') {
+        inString = true;
+        continue;
+      }
+      if (current == open) {
+        depth += 1;
+      } else if (current == close) {
+        depth -= 1;
+        if (depth == 0) {
+          return i;
+        }
+      }
+    }
+    return -1;
+  }
+
+  private static int parseIndex(String value, int fallback) {
+    try {
+      return Integer.parseInt(value.trim());
+    } catch (NumberFormatException error) {
+      return fallback;
+    }
   }
 
   private static String firstPresent(Map<String, String> values, String first, String second) {

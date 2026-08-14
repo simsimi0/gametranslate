@@ -5,11 +5,21 @@ const DEFAULT_ENDPOINT_BASE = "https://generativelanguage.googleapis.com/v1beta/
 
 const RESPONSE_SCHEMA = {
   type: "object",
-  required: ["translation_ko", "naturalness_score", "translationese_risk"],
+  required: ["results"],
   properties: {
-    translation_ko: { type: "string" },
-    naturalness_score: { type: "integer" },
-    translationese_risk: { type: "string", enum: ["low", "medium", "high"] }
+    results: {
+      type: "array",
+      items: {
+        type: "object",
+        required: ["index", "translation_ko", "naturalness_score", "translationese_risk"],
+        properties: {
+          index: { type: "integer" },
+          translation_ko: { type: "string" },
+          naturalness_score: { type: "integer" },
+          translationese_risk: { type: "string", enum: ["low", "medium", "high"] }
+        }
+      }
+    }
   }
 };
 
@@ -40,11 +50,18 @@ export class GeminiTranslator {
   }
 
   async translate(row) {
+    return (await this.translateAll([row]))[0];
+  }
+
+  async translateAll(rows) {
     if (!this.#apiKey) {
       throw new Error("GOOGLE_API_KEY or GEMINI_API_KEY is required for Gemini translation");
     }
     if (typeof this.fetchImpl !== "function") {
       throw new Error("fetch is not available");
+    }
+    if (!Array.isArray(rows) || rows.length === 0) {
+      return [];
     }
 
     const response = await this.fetchImpl(this.endpoint(), {
@@ -59,7 +76,7 @@ export class GeminiTranslator {
             role: "user",
             parts: [
               {
-                text: buildPrompt(row)
+                text: buildPrompt(rows)
               }
             ]
           }
@@ -76,7 +93,7 @@ export class GeminiTranslator {
       throw new Error(data.error?.message ?? `Gemini request failed: ${response.status}`);
     }
 
-    return parseTranslationResponse(data);
+    return parseTranslationResponses(data, rows.length);
   }
 
   endpoint() {
@@ -84,17 +101,18 @@ export class GeminiTranslator {
   }
 }
 
-function buildPrompt(row) {
+function buildPrompt(rows) {
   return JSON.stringify({
-    task: "Translate the source_en field to Korean for an indie game localization CSV.",
+    task: "Translate source_en fields to Korean for an indie game localization CSV.",
     rules: [
       "Use source_en as the text to translate.",
       "Use category, speaker, context, and style_guide only as references.",
       "Preserve every required token exactly.",
-      "Do not translate or change key.",
+      "Return one result for every input row in the same order.",
       "Return JSON only."
     ],
-    row: {
+    rows: rows.map((row, index) => ({
+      index,
       key: row.key ?? "",
       category: row.category ?? "",
       speaker: row.speaker ?? "",
@@ -103,23 +121,37 @@ function buildPrompt(row) {
       style_guide: row.style_guide ?? "",
       required_preserve: row.required_preserve ?? "",
       required_tokens: expectedRequiredTokensForRow(row)
-    },
+    })),
     output_schema: RESPONSE_SCHEMA
   });
 }
 
-function parseTranslationResponse(data) {
+function parseTranslationResponses(data, expectedCount) {
   const text = collectCandidateText(data);
   if (!text) {
     throw new Error("Gemini response did not include candidate text");
   }
 
   const parsed = JSON.parse(text);
-  return {
-    translation_ko: parsed.translation_ko ?? "",
-    naturalness_score: parsed.naturalness_score ?? "",
-    translationese_risk: parsed.translationese_risk ?? ""
-  };
+  const results = Array.isArray(parsed.results) ? parsed.results : [parsed];
+  const byIndex = new Array(expectedCount);
+
+  results.forEach((result, fallbackIndex) => {
+    const index = Number.isInteger(result.index) ? result.index : fallbackIndex;
+    if (index >= 0 && index < expectedCount) {
+      byIndex[index] = {
+        translation_ko: result.translation_ko ?? "",
+        naturalness_score: result.naturalness_score ?? "",
+        translationese_risk: result.translationese_risk ?? ""
+      };
+    }
+  });
+
+  if (byIndex.some((result) => !result)) {
+    throw new Error("Gemini batch response row count mismatch");
+  }
+
+  return byIndex;
 }
 
 function collectCandidateText(data) {

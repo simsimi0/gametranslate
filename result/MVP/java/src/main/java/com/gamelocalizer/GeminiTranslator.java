@@ -154,11 +154,10 @@ public final class GeminiTranslator implements Translator {
   private static String responseSchema() {
     return "{"
         + "\"type\":\"object\","
-        + "\"additionalProperties\":false,"
         + "\"required\":[\"translation_ko\",\"naturalness_score\",\"translationese_risk\"],"
         + "\"properties\":{"
         + "\"translation_ko\":{\"type\":\"string\"},"
-        + "\"naturalness_score\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10},"
+        + "\"naturalness_score\":{\"type\":\"integer\"},"
         + "\"translationese_risk\":{\"type\":\"string\",\"enum\":[\"low\",\"medium\",\"high\"]}"
         + "}}";
   }

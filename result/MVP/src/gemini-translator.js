@@ -103,12 +103,21 @@ export class GeminiTranslator {
 
 function buildPrompt(rows) {
   return JSON.stringify({
-    task: "Translate source_en fields to Korean for an indie game localization CSV.",
+    task: "Analyze context and translate source_en fields to Korean for an indie game localization CSV.",
+    workflow: [
+      "Infer speaker profiles from all rows before translating.",
+      "Infer an internal glossary for recurring items, skills, places, monsters, UI terms, and proper names.",
+      "Translate each source_en using the inferred profiles, glossary, row metadata, and neighboring text."
+    ],
     rules: [
-      "Use source_en as the text to translate.",
-      "Use category, speaker, context, and style_guide only as references.",
+      "Use source_en as the only text to translate; use metadata only as context.",
+      "When style_guide is empty, infer tone from speaker, event_name, event_kind, field_type, context, and neighboring rows.",
+      "Keep each speaker's Korean voice consistent across the batch.",
+      "Keep glossary terms consistent across UI, item, skill, map, monster, and dialogue rows.",
+      "Avoid literal English joke structures; rewrite sarcasm, warnings, and lore naturally in Korean.",
       "Preserve every required token exactly.",
       "Return one result for every input row in the same order.",
+      "Do not output the inferred profiles or glossary; return JSON results only.",
       "Return JSON only."
     ],
     rows: rows.map((row, index) => ({
@@ -117,6 +126,11 @@ function buildPrompt(rows) {
       category: row.category ?? "",
       speaker: row.speaker ?? "",
       context: row.context ?? "",
+      event_name: row.event_name ?? "",
+      event_kind: row.event_kind ?? "",
+      field_type: row.field_type ?? "",
+      neighbor_before: row.neighbor_before ?? "",
+      neighbor_after: row.neighbor_after ?? "",
       source_en: row.source_en ?? "",
       style_guide: row.style_guide ?? "",
       required_preserve: row.required_preserve ?? "",

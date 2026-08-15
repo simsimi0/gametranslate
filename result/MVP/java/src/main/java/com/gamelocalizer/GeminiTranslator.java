@@ -126,11 +126,20 @@ public final class GeminiTranslator implements Translator {
   }
 
   private String buildPayload(List<Map<String, String>> rows) {
-    StringBuilder json = new StringBuilder("{\"task\":\"translate_source_en_to_korean_batch\",\"rules\":[");
-    json.append(jsonString("Use source_en as the text to translate.")).append(',');
-    json.append(jsonString("Use metadata only as context.")).append(',');
+    StringBuilder json =
+        new StringBuilder("{\"task\":\"analyze_context_and_translate_source_en_to_korean_batch\",\"workflow\":[");
+    json.append(jsonString("Infer speaker profiles from all rows before translating.")).append(',');
+    json.append(jsonString("Infer an internal glossary for recurring items, skills, places, monsters, UI terms, and proper names.")).append(',');
+    json.append(jsonString("Translate each source_en using the inferred profiles, glossary, row metadata, and neighboring text."));
+    json.append("],\"rules\":[");
+    json.append(jsonString("Use source_en as the only text to translate; use metadata only as context.")).append(',');
+    json.append(jsonString("When style_guide is empty, infer tone from speaker, event_name, event_kind, field_type, context, and neighboring rows.")).append(',');
+    json.append(jsonString("Keep each speaker's Korean voice consistent across the batch.")).append(',');
+    json.append(jsonString("Keep glossary terms consistent across UI, item, skill, map, monster, and dialogue rows.")).append(',');
+    json.append(jsonString("Avoid literal English joke structures; rewrite sarcasm, warnings, and lore naturally in Korean.")).append(',');
     json.append(jsonString("Preserve required tokens exactly.")).append(',');
     json.append(jsonString("Return one result for every input row in the same order.")).append(',');
+    json.append(jsonString("Do not output the inferred profiles or glossary; return JSON results only.")).append(',');
     json.append(jsonString("Return JSON only."));
     json.append("],\"rows\":[");
     for (int i = 0; i < rows.size(); i += 1) {
@@ -149,6 +158,11 @@ public final class GeminiTranslator implements Translator {
     fields.put("category", row.getOrDefault("category", ""));
     fields.put("speaker", row.getOrDefault("speaker", ""));
     fields.put("context", row.getOrDefault("context", ""));
+    fields.put("event_name", row.getOrDefault("event_name", ""));
+    fields.put("event_kind", row.getOrDefault("event_kind", ""));
+    fields.put("field_type", row.getOrDefault("field_type", ""));
+    fields.put("neighbor_before", row.getOrDefault("neighbor_before", ""));
+    fields.put("neighbor_after", row.getOrDefault("neighbor_after", ""));
     fields.put("source_en", row.getOrDefault("source_en", ""));
     fields.put("style_guide", row.getOrDefault("style_guide", ""));
     fields.put("required_preserve", row.getOrDefault("required_preserve", ""));

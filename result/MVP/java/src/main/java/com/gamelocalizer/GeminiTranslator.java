@@ -145,7 +145,6 @@ public final class GeminiTranslator implements Translator {
 
   private String rowPayload(Map<String, String> row, int index) {
     Map<String, String> fields = new LinkedHashMap<>();
-    fields.put("index", String.valueOf(index));
     fields.put("key", row.getOrDefault("key", ""));
     fields.put("category", row.getOrDefault("category", ""));
     fields.put("speaker", row.getOrDefault("speaker", ""));
@@ -155,12 +154,9 @@ public final class GeminiTranslator implements Translator {
     fields.put("required_preserve", row.getOrDefault("required_preserve", ""));
 
     StringBuilder json = new StringBuilder("{");
-    boolean first = true;
+    json.append("\"index\":").append(index);
     for (Map.Entry<String, String> entry : fields.entrySet()) {
-      if (!first) {
-        json.append(',');
-      }
-      first = false;
+      json.append(',');
       json.append(jsonString(entry.getKey())).append(':').append(jsonString(entry.getValue()));
     }
     json.append(",\"required_tokens\":[");
